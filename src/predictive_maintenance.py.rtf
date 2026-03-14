@@ -1,0 +1,59 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset178 GeezaPro;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh9000\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import pandas as pd\
+import numpy as np\
+from sklearn.model_selection import train_test_split\
+from sklearn.ensemble import RandomForestClassifier\
+from sklearn.metrics import classification_report, confusion_matrix\
+import joblib\
+import os\
+\
+def generate_synthetic_maintenance_data(samples=1000):\
+    """Simulates machine sensor data for failure prediction."""\
+    np.random.seed(42)\
+    data = pd.DataFrame(\{\
+        'temperature': np.random.normal(65, 10, samples),  # Operating temp\
+        'vibration_hz': np.random.normal(120, 15, samples), # Vibration frequency\
+        'operating_hours': np.random.uniform(100, 5000, samples),\
+        'power_draw_kwh': np.random.normal(30, 5, samples)\
+    \})\
+    \
+    # Logic: High temp + high vibration + long hours = Failure\
+    data['failure_risk'] = np.where(\
+        (data['temperature'] > 75) & (data['vibration_hz'] > 135) & (data['operating_hours'] > 3000), \
+        1, 0\
+    )\
+    return data\
+\
+def train_predictive_maintenance_model():\
+    print("Loading sensor telemetry data...")\
+    df = generate_synthetic_maintenance_data()\
+    \
+    X = df[['temperature', 'vibration_hz', 'operating_hours', 'power_draw_kwh']]\
+    y = df['failure_risk']\
+    \
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\
+    \
+    print("Training Random Forest Classifier for Predictive Maintenance...")\
+    model = RandomForestClassifier(n_estimators=100, max_depth=5, random_state=42)\
+    model.fit(X_train, y_train)\
+    \
+    predictions = model.predict(X_test)\
+    \
+    print("\\nModel Evaluation:")\
+    print(classification_report(y_test, predictions))\
+    \
+    # Ensure models directory exists\
+    os.makedirs('models', exist_ok=True)\
+    \
+    # Save the model for production deployment\
+    joblib.dump(model, 'models/predictive_maintenance_model.pkl')\
+    print("Model saved to 'models/predictive_maintenance_model.pkl'")\
+\
+if __name__ == "__main__":\
+    train_predictive_maintenance_model()}

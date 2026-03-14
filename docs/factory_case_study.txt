@@ -1,0 +1,35 @@
+
+Case Study: Digital Twin Energy Optimization in a Manufacturing Facility
+
+Industry: Steel Processing Plant
+
+Factory Overview:
+The factory operates several heavy industrial machines including furnaces,
+compressors, and rolling equipment. Energy consumption represents nearly
+35% of the operational cost of the facility.
+
+Problem:
+Energy consumption peaks during mid‑day production cycles due to inefficient
+machine scheduling and idle running equipment.
+
+Proposed Solution:
+A Digital Twin system is implemented to simulate machine behavior and monitor
+energy consumption in real time.
+
+System Components:
+• IoT sensors measuring electricity consumption and machine load
+• Data collection platform
+• Digital Twin simulation model
+• AI‑based optimization algorithm
+
+Results from Simulation:
+Baseline daily energy consumption: 480 kWh
+Optimized daily consumption: 402 kWh
+
+Energy reduction: 16%
+Annual energy savings: ~28,000 kWh
+Estimated CO2 reduction: ~12 tons per year
+
+Conclusion:
+The case study demonstrates that Digital Twin‑based energy optimization can
+significantly improve industrial efficiency and sustainability.
